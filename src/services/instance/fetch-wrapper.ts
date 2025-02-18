@@ -1,5 +1,5 @@
 class FetchClient {
-  private API_URL = process.env.NEXT_PUBLIC_API_URL as string;
+  private API_URL = import.meta.env.VITE_API_URL as string;
 
   constructor(private defaultHeaders: Record<string, string> = {}) {}
 
@@ -53,7 +53,9 @@ class FetchClient {
     body?: unknown,
     headers?: Record<string, string>,
   ): Promise<T> {
+    console.log(path);
     const url = `${this.API_URL}${path}`;
+    console.log(url);
 
     const isFormData = body instanceof FormData;
 
