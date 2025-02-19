@@ -10,6 +10,11 @@ interface Props {
 
 export const SearchField: React.FC<Props> = ({ value, onChange, className }) => {
   return (
-    <Input className={cn('', className)} value={value} onChange={(e) => onChange(e.target.value)} />
+    <Input
+      className={cn('', className)}
+      placeholder="Имя пользователя GitHub"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+    />
   );
 };

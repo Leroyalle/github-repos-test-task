@@ -12,5 +12,6 @@ export const getReposByUserInfiniteQueryOptions = (username: string) => {
     select: ({ pages }) => pages.flatMap((page) => page),
     initialPageParam: 1,
     refetchOnWindowFocus: false,
+    enabled: !!username,
   });
 };

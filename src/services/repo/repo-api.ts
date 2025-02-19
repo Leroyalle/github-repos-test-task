@@ -4,9 +4,7 @@ import { $fetch } from '../instance';
 class RepoService {
   public async getReposByUser(username: string, page: number, perPage: number): Promise<Repo[]> {
     return $fetch.get<Repo[]>(
-      `${ApiRoutesEnum.USER}${username ? `/${username}` : ''}${
-        ApiRoutesEnum.REPOS
-      }?page=${page}&per_page=${perPage}`,
+      `${ApiRoutesEnum.USER}/${username}${ApiRoutesEnum.REPOS}?page=${page}&per_page=${perPage}`,
       true,
     );
   }

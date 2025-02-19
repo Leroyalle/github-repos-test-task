@@ -3,13 +3,21 @@ import { getReposByUserInfiniteQueryOptions } from '@/services/repo';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { toast } from 'sonner';
 
 export const useInfiniteScrollRepos = (username: string) => {
   const { ref, inView } = useInView();
 
-  const { data, isLoading, isError, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-    getReposByUserInfiniteQueryOptions(username),
-  );
+  const {
+    data,
+    isLoading,
+    isPending,
+    isFetching,
+    isError,
+    error,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery(getReposByUserInfiniteQueryOptions(username));
 
   useEffect(() => {
     if (inView) {
@@ -17,7 +25,17 @@ export const useInfiniteScrollRepos = (username: string) => {
     }
   }, [inView, fetchNextPage]);
 
+  useEffect(() => {
+    if (isError) {
+      queueMicrotask(() =>
+        toast.error('Произошла ошибка', {
+          description: 'Не удалось найти репозитории пользователя с таким именем',
+        }),
+      );
+    }
+  }, [isError]);
+
   const cursor = <Cursor isFetching={isFetchingNextPage} ref={ref} />;
 
-  return { data, isLoading, isError, cursor };
+  return { data, isLoading, isPending, isFetching, isError, cursor };
 };

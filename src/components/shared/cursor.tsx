@@ -10,9 +10,8 @@ interface Props {
 
 export const Cursor: React.FC<Props> = ({ isFetching, ref, className }) => {
   return (
-    <>
+    <div className={cn('flex justify-center my-1', className)} ref={ref}>
       {isFetching && <Loader className="animate-spin" />}
-      <div className={cn('', className)} ref={ref} />
-    </>
+    </div>
   );
 };

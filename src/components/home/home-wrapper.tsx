@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { SearchField } from './search';
 import { useDebounceSearch, useInfiniteScrollRepos } from '@/hooks';
 import { Container } from '../shared';
+import { ReposList } from './repos-list';
 
 interface Props {
   className?: string;
@@ -10,14 +11,20 @@ interface Props {
 
 export const HomeWrapper: React.FC<Props> = ({ className }) => {
   const { searchValue, debouncedSearchValue, handleSearch } = useDebounceSearch();
-  const { data } = useInfiniteScrollRepos(debouncedSearchValue);
+  const {
+    data: repos,
+    isPending,
+    isFetching,
+    cursor,
+  } = useInfiniteScrollRepos(debouncedSearchValue);
 
-  console.log('REPOS', data);
   return (
-    <Container className="px-6">
+    <Container className="p-6">
       <section className={cn('', className)}>
         <h2 className="sr-only">Поиск репозиториев</h2>
-        <SearchField value={searchValue} onChange={handleSearch} />
+        <SearchField value={searchValue} onChange={handleSearch} className="mb-3" />
+        <ReposList repos={repos} isLoading={isPending && isFetching} />
+        {debouncedSearchValue && cursor}
       </section>
     </Container>
   );
