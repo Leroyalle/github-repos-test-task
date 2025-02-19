@@ -7,5 +7,9 @@ interface Props {
 }
 
 export const RepoCardUpdated: React.FC<Props> = ({ updatedAt, className }) => {
-  return <span className={cn('text-muted-foreground', className)}>{updatedAt}</span>;
+  return (
+    <span className={cn('text-muted-foreground', className)}>
+      Updated {new Date(updatedAt).toLocaleDateString()}
+    </span>
+  );
 };

@@ -8,7 +8,7 @@ interface Props {
 export const RepoCardLink: React.FC<Props> = ({ href, className }) => {
   return (
     <a href={href} target="_blank" className={className}>
-      Перейти
+      Go to GitHub
     </a>
   );
 };

@@ -9,7 +9,7 @@ interface Props {
 export const RepoCardSkeleton: React.FC<Props> = ({ className }) => {
   return (
     <div className={cn('', className)}>
-      <Skeleton className="h-20 w-full" />
+      <Skeleton className="h-36 w-full" />
     </div>
   );
 };

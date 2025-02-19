@@ -9,7 +9,7 @@ interface Props {
 export const ReposListSkeleton: React.FC<Props> = ({ className }) => {
   return (
     <div className={cn('flex flex-col gap-y-3', className)}>
-      {Array.from({ length: 3 }).map((_, index) => (
+      {Array.from({ length: 5 }).map((_, index) => (
         <RepoCardSkeleton key={index} />
       ))}
     </div>
