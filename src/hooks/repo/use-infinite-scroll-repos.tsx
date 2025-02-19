@@ -1,8 +1,8 @@
 import { Cursor } from '@/components/shared';
+import { toastMessageHandler } from '@/lib/shared';
 import { useGetReposByUserQuery } from '@/services/repo';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { toast } from 'sonner';
 
 export const useInfiniteScrollRepos = (username: string) => {
   const { ref, inView } = useInView();
@@ -20,6 +20,7 @@ export const useInfiniteScrollRepos = (username: string) => {
     isLoading,
     isFetching,
     isError,
+    error,
   } = useGetReposByUserQuery(
     { username, page, perPage: PER_PAGE },
     {
@@ -41,12 +42,8 @@ export const useInfiniteScrollRepos = (username: string) => {
   }, [inView, hasMore]);
 
   useEffect(() => {
-    if (isError) {
-      queueMicrotask(() =>
-        toast.error('Ошибка при загрузке репозиториев', {
-          description: 'Возможно, вы ввели неверное имя пользователя',
-        }),
-      );
+    if (isError && error) {
+      queueMicrotask(() => toastMessageHandler(error));
       setHasMore(false);
     }
   }, [isError]);
