@@ -14,6 +14,7 @@ export const SearchField: React.FC<Props> = ({ value, onChange, className }) => 
       className={cn('', className)}
       placeholder="Имя пользователя GitHub"
       value={value}
+      max={20}
       onChange={(e) => onChange(e.target.value)}
     />
   );

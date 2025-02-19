@@ -8,16 +8,8 @@ import { toast } from 'sonner';
 export const useInfiniteScrollRepos = (username: string) => {
   const { ref, inView } = useInView();
 
-  const {
-    data,
-    isLoading,
-    isPending,
-    isFetching,
-    isError,
-    error,
-    fetchNextPage,
-    isFetchingNextPage,
-  } = useInfiniteQuery(getReposByUserInfiniteQueryOptions(username));
+  const { data, isLoading, isPending, isFetching, isError, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery(getReposByUserInfiniteQueryOptions(username));
 
   useEffect(() => {
     if (inView) {

@@ -1,15 +1,9 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  EmptyState,
-} from '@/components/shared';
+import { EmptyState } from '@/components/shared';
 import { Repo } from '@/types';
 import { ReposListSkeleton } from './repos-list-skeleton';
+import { RepoCard } from './repo-card';
 
 interface Props {
   repos: Repo[] | undefined;
@@ -34,13 +28,15 @@ export const ReposList: React.FC<Props> = ({ repos, isLoading, className }) => {
   return (
     <div className={cn('flex flex-col gap-y-3', className)}>
       {repos.map((repo) => (
-        <Card key={repo.id}>
-          <CardHeader>
-            <CardTitle>{repo.name}</CardTitle>
-            <CardDescription>{repo.description}</CardDescription>
-          </CardHeader>
-          <CardContent></CardContent>
-        </Card>
+        <RepoCard
+          key={repo.id}
+          id={repo.id}
+          name={repo.name}
+          description={repo.description}
+          stargazers_count={repo.stargazers_count}
+          updated_at={repo.updated_at}
+          html_url={repo.html_url}
+        />
       ))}
     </div>
   );
