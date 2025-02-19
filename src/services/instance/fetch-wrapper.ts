@@ -53,9 +53,7 @@ class FetchClient {
     body?: unknown,
     headers?: Record<string, string>,
   ): Promise<T> {
-    console.log(path);
     const url = `${this.API_URL}${path}`;
-    console.log(url);
 
     const isFormData = body instanceof FormData;
 
@@ -72,7 +70,7 @@ class FetchClient {
     const data = await response.json();
 
     if (!response.ok) {
-      console.log(data);
+      console.log(data, isAuth);
       throw new Error(data);
     }
 
